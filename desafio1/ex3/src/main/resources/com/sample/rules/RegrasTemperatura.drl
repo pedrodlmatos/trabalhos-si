@@ -1,0 +1,31 @@
+package com.sample.rules
+
+import com.sample.Pessoa;
+import com.sample.Temperatura;
+
+
+rule "Regra1"
+    when
+        $p: Pessoa(nome == "José")
+        $t: Temperatura(valor > 26)
+    then
+        System.out.println("Ligar o sistema devido a " + $p.getNome());
+end
+
+
+rule "Regra2"
+    when
+        $p: Pessoa(nome == "José")
+        $t: Temperatura(valor < 20)
+    then
+        System.out.println("Desligar o sistema devido a " + $p.getNome());
+end
+
+
+rule "Regra3"
+	when
+		$p: Pessoa(nome == "Manuel")
+		$t: Temperatura(valor > 21)
+	then
+		System.out.println("Ligar o sistema devido a " + $p.getNome());
+end
