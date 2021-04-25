@@ -11,36 +11,33 @@ rule "Ligar sistema"
 		($p: Pessoa(nome == "Manuel") && $s: Sala(temperatura > 21, ligado == false)) ||
 		($p: Pessoa(nome == "Joaquim") && $s: Sala(temperatura > 17, ligado == false))
 		);
-	then
-		System.out.println(" -> Sistema está desligado");
-		System.out.println(String.format(" -> Temperatura ambiente: %d", $s.getTemperatura()));
-		System.out.println(String.format(" -> %s está na sala\n", $p.getNome()));
-		
+	then	
 		$s.setLigado(true);
 		$s.setTemperatura($s.getTemperatura() - 1);
 		update($s);
 		
-		System.out.println(" --> Sistema ligou");
+		System.out.println(String.format(" --> Sistema ligou devido a %s", $p.getNome()));
 		System.out.println(String.format(" --> Temperatura alterou para %d\n\n", $s.getTemperatura()));
 end
 
 
-rule "Desligar o sistema"
+rule "Desligar sistema"
 	when
 		(
 		($p: Pessoa(nome == "José") && $s: Sala(temperatura < 20, ligado == true)) ||
 		($p: Pessoa(nome == "Manuel") && $s: Sala(temperatura < 18, ligado == true)) ||
 		($p: Pessoa(nome == "Joaquim") && $s: Sala(temperatura < 11, ligado == true))
 		);
-	then
-		System.out.println(" -> Sistema está ligado");
-		System.out.println(String.format(" -> Temperatura ambiente: %d", $s.getTemperatura()));
-		System.out.println(String.format(" -> %s está na sala\n", $p.getNome()));
-		
+	then		
 		$s.setLigado(false);
 		$s.setTemperatura($s.getTemperatura() + 1);
 		update($s);
 		
-		System.out.println(" --> Sistema desligou");
+		System.out.println(String.format(" --> Sistema desligou devido a %s", $p.getNome()));
 		System.out.println(String.format(" --> Temperatura alterou para %d\n\n", $s.getTemperatura()));
 end
+
+
+
+
+
