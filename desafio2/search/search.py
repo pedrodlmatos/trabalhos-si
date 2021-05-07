@@ -18,6 +18,7 @@ Pacman agents (in searchAgents.py).
 """
 
 import util
+from util import Stack
 
 
 class SearchProblem:
@@ -73,6 +74,7 @@ def tinyMazeSearch(problem):
     w = Directions.WEST
     return  [s, s, w, s, w, w, s, w]
 
+
 def depthFirstSearch(problem):
     """
     Search the deepest nodes in the search tree first.
@@ -88,7 +90,46 @@ def depthFirstSearch(problem):
     print "Start's successors:", problem.getSuccessors(problem.getStartState())
     """
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    # delete later
+    print(problem.getStartState())
+    print("Is the start a goal?", problem.isGoalState(problem.getStartState()))
+    print("Start's successors:", problem.getSuccessors(problem.getStartState()))
+
+    stack = Stack()         # stack structure (from utils)
+    visited = []            # visited states
+
+    # if initial state is the goal state
+    if problem.isGoalState(problem.getStartState()):
+        return []
+
+    # Push initial state and path to it (empty path)
+    stack.push((problem.getStartState(), []))
+
+    # Stop when solution is not found
+    while not stack.isEmpty():
+        # get current state and path to it
+        state, path_to_state = stack.pop()
+        # print(path_to_state)
+
+        # verify if state is goal state
+        if problem.isGoalState(state):
+            return path_to_state
+
+        if state not in visited:
+            visited.append(state)
+
+            # Get child nodes of current state
+            child_nodes = problem.getSuccessors(state)
+
+            if child_nodes:
+                for node in child_nodes:
+                    state, direction, cost = node
+                    if state not in visited:
+                        new_path = path_to_state + [direction]
+                        stack.push((state, new_path))
+
+
+
 
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
@@ -114,7 +155,7 @@ def aStarSearch(problem, heuristic=nullHeuristic):
 
 
 # Abbreviations
-bfs = breadthFirstSearch
+bfs = breadthFirstSearch    # to be implemented
 dfs = depthFirstSearch
-astar = aStarSearch
-ucs = uniformCostSearch
+astar = aStarSearch         # to be implemented
+ucs = uniformCostSearch     # to be implemented
