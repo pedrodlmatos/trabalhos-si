@@ -18,6 +18,7 @@ Pacman agents (in searchAgents.py).
 """
 
 import util
+from random import shuffle
 from util import Stack
 
 
@@ -91,44 +92,49 @@ def depthFirstSearch(problem):
     """
     "*** YOUR CODE HERE ***"
     # delete later
-    print(problem.getStartState())
-    print("Is the start a goal?", problem.isGoalState(problem.getStartState()))
-    print("Start's successors:", problem.getSuccessors(problem.getStartState()))
+    #print("\n\n")
+    #print(problem.getStartState())
+    #print("Is the start a goal?", problem.isGoalState(problem.getStartState()))
+    #print("Start's successors:", problem.getSuccessors(problem.getStartState()))
 
-    stack = Stack()         # stack structure (from utils)
-    visited = []            # visited states
+    actions = Stack()                   # stack structure (from utils)
+    visited_states = []                 # visited states
 
-    # if initial state is the goal state
+    # if initial state is the goal state (stop)
     if problem.isGoalState(problem.getStartState()):
         return []
 
     # Push initial state and path to it (empty path)
-    stack.push((problem.getStartState(), []))
+    initial_node = (problem.getStartState(), [])
+    actions.push(initial_node)
 
     # Stop when solution is not found
-    while not stack.isEmpty():
+    while not actions.isEmpty():
         # get current state and path to it
-        state, path_to_state = stack.pop()
+        current_state, path_to_state = actions.pop()
         # print(path_to_state)
 
         # verify if state is goal state
-        if problem.isGoalState(state):
+        if problem.isGoalState(current_state):
             return path_to_state
 
-        if state not in visited:
-            visited.append(state)
+        if current_state not in visited_states:
+            # add state in list of visited states
+            visited_states.append(current_state)
 
             # Get child nodes of current state
-            child_nodes = problem.getSuccessors(state)
+            child_states = problem.getSuccessors(current_state)
+            shuffle(child_states)
 
-            if child_nodes:
-                for node in child_nodes:
+            if len(child_states) > 0:
+                # add child nodes to list of actions
+                for node in child_states:
                     state, direction, cost = node
-                    if state not in visited:
-                        new_path = path_to_state + [direction]
-                        stack.push((state, new_path))
+                    if state not in visited_states:
+                        child_path = path_to_state + [direction]
+                        actions.push((state, child_path))
 
-
+    return []
 
 
 def breadthFirstSearch(problem):

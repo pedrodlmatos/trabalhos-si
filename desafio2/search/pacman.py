@@ -645,7 +645,8 @@ def runGames( layout, pacman, ghosts, display, numGames, record, numTraining = 0
             rules.quiet = False
         game = rules.newGame( layout, pacman, ghosts, gameDisplay, beQuiet, catchExceptions)
         game.run()
-        if not beQuiet: games.append(game)
+        #if not beQuiet: games.append(game)
+        games.append(game)
 
         if record:
             import time, cPickle
