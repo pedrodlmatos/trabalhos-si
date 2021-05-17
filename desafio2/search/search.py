@@ -82,21 +82,7 @@ def depthFirstSearch(problem):
 
     Your search algorithm needs to return a list of actions that reaches the
     goal. Make sure to implement a graph search algorithm.
-
-    To get started, you might want to try some of these simple commands to
-    understand the search problem that is being passed in:
-
-    print "Start:", problem.getStartState()
-    print "Is the start a goal?", problem.isGoalState(problem.getStartState())
-    print "Start's successors:", problem.getSuccessors(problem.getStartState())
     """
-    "*** YOUR CODE HERE ***"
-    # delete later
-    #print("\n\n")
-    #print(problem.getStartState())
-    #print("Is the start a goal?", problem.isGoalState(problem.getStartState()))
-    #print("Start's successors:", problem.getSuccessors(problem.getStartState()))
-
     actions = Stack()                   # stack structure (from utils)
     visited_states = []                 # visited states
 
@@ -105,14 +91,12 @@ def depthFirstSearch(problem):
         return []
 
     # Push initial state and path to it (empty path)
-    initial_node = (problem.getStartState(), [])
-    actions.push(initial_node)
+    actions.push((problem.getStartState(), []))
 
     # Stop when solution is not found
     while not actions.isEmpty():
         # get current state and path to it
         current_state, path_to_state = actions.pop()
-        # print(path_to_state)
 
         # verify if state is goal state
         if problem.isGoalState(current_state):
@@ -124,7 +108,7 @@ def depthFirstSearch(problem):
 
             # Get child nodes of current state
             child_states = problem.getSuccessors(current_state)
-            shuffle(child_states)
+            #shuffle(child_states)
 
             if len(child_states) > 0:
                 # add child nodes to list of actions
