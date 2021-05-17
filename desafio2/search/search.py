@@ -93,7 +93,7 @@ def depthFirstSearch(problem):
     # Push initial state and path to it (empty path)
     actions.push((problem.getStartState(), []))
 
-    # Stop when solution is not found
+    # Stop when solution is found
     while not actions.isEmpty():
         # get current state and path to it
         current_state, path_to_state = actions.pop()
