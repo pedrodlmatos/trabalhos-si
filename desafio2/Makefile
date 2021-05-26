@@ -75,3 +75,25 @@ random_bigMaze:
   echo "scale=2 ; $$cost / $(n)" | bc
 
 
+#### ALGORITMO UCS
+
+ucs_tinyMaze:
+	cd search/; \
+	${PYTHON} pacman.py -l tinyMaze -p SearchAgent -a fn=ucs
+
+
+ucs_smallMaze:
+	cd search/; \
+	${PYTHON} pacman.py -l smallMaze -p SearchAgent -a fn=ucs
+
+
+ucs_mediumMaze:
+	cd search/; \
+	${PYTHON} pacman.py -l mediumMaze -p SearchAgent -a fn=ucs
+
+
+ucs_bigMaze:
+	cd search/; \
+	${PYTHON} pacman.py -l bigMaze -p SearchAgent -a fn=ucs -z 0.8
+
+

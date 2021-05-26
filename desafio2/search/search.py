@@ -19,7 +19,7 @@ Pacman agents (in searchAgents.py).
 
 import util
 from random import shuffle
-from util import Stack
+from util import Stack, PriorityQueue
 
 
 class SearchProblem:
@@ -73,7 +73,7 @@ def tinyMazeSearch(problem):
     from game import Directions
     s = Directions.SOUTH
     w = Directions.WEST
-    return  [s, s, w, s, w, w, s, w]
+    return [s, s, w, s, w, w, s, w]
 
 
 def depthFirstSearch(problem):
@@ -83,8 +83,8 @@ def depthFirstSearch(problem):
     Your search algorithm needs to return a list of actions that reaches the
     goal. Make sure to implement a graph search algorithm.
     """
-    actions = Stack()                   # stack structure (from utils)
-    visited_states = []                 # visited states
+    actions = Stack()  # stack structure (from utils)
+    visited_states = []  # visited states
 
     # if initial state is the goal state (stop)
     if problem.isGoalState(problem.getStartState()):
@@ -108,7 +108,7 @@ def depthFirstSearch(problem):
 
             # Get child nodes of current state
             child_states = problem.getSuccessors(current_state)
-            #shuffle(child_states)
+            # shuffle(child_states)
 
             if len(child_states) > 0:
                 # add child nodes to list of actions
@@ -126,10 +126,49 @@ def breadthFirstSearch(problem):
     "*** YOUR CODE HERE ***"
     util.raiseNotDefined()
 
+
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+
+    frontier = PriorityQueue()  # frontier
+    visited_states = []  # list of visited states
+    node = problem.getStartState()  # initial node
+
+    # if initial state is the goal state (stop)
+    if problem.isGoalState(node):
+        return []
+
+    # push initial state in PriorityQueue
+    frontier.push((node, []), 0)
+
+    # stop when solution is found or when queue is empty
+    while not frontier.isEmpty():
+        current_state, path_to_state = frontier.pop()  # choose the lowest cost node
+
+        if problem.isGoalState(current_state):
+            return path_to_state
+
+        if current_state not in visited_states:
+            # add current state in visited states
+            visited_states.append(current_state)
+
+            # get child nodes
+            child_states = problem.getSuccessors(current_state)
+
+            if len(child_states) > 0:
+                # add child nodes to list of actions
+                for node in child_states:
+                    state, direction, cost = node
+                    path_to_child = path_to_state + [direction]
+                    path_cost = problem.getCostOfActions(path_to_child)
+                    frontier_states = {state: priority for priority, _, (state, directions) in frontier.heap}
+
+                    if state not in visited_states or state not in frontier_states:
+                        frontier.push((state, path_to_child), path_cost)
+                    elif state in frontier_states and frontier_states[state] > path_cost:
+                        frontier.update((state, path_to_child), path_cost)
+    return []
+
 
 def nullHeuristic(state, problem=None):
     """
@@ -138,6 +177,7 @@ def nullHeuristic(state, problem=None):
     """
     return 0
 
+
 def aStarSearch(problem, heuristic=nullHeuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
     "*** YOUR CODE HERE ***"
@@ -145,7 +185,7 @@ def aStarSearch(problem, heuristic=nullHeuristic):
 
 
 # Abbreviations
-bfs = breadthFirstSearch    # to be implemented
+bfs = breadthFirstSearch  # to be implemented
 dfs = depthFirstSearch
-astar = aStarSearch         # to be implemented
-ucs = uniformCostSearch     # to be implemented
+astar = aStarSearch  # to be implemented
+ucs = uniformCostSearch  # to be implemented
