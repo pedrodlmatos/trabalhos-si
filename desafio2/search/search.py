@@ -19,7 +19,7 @@ Pacman agents (in searchAgents.py).
 
 import util
 from random import shuffle
-from util import Stack, PriorityQueue
+from util import Stack, Queue, PriorityQueue
 
 
 class SearchProblem:
@@ -124,7 +124,64 @@ def depthFirstSearch(problem):
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    actions = Queue()  # stack structure (from utils)
+    visited_states = []  # visited states
+
+    # if initial state is the goal state (stop)
+    if problem.isGoalState(problem.getStartState()):
+        return []
+
+    # Push initial state and path to it (empty path)
+    initial_node = (problem.getStartState(), [])
+    actions.push(initial_node)
+
+    # Stop when solution is not found
+    while not actions.isEmpty():
+        # get current state and path to it
+        current_state, path_to_state = actions.pop()
+        # print(path_to_state)
+
+        # verify if state is goal state
+        if problem.isGoalState(current_state):
+            return path_to_state
+
+        if current_state not in visited_states:
+            # add state in list of visited states
+            visited_states.append(current_state)
+
+            # Get child nodes of current state
+            child_states = problem.getSuccessors(current_state)
+            shuffle(child_states)
+
+            if len(child_states) > 0:
+                # add child nodes to list of actions
+                for node in child_states:
+                    state, direction, cost = node
+                    if state not in visited_states:
+                        child_path = path_to_state + [direction]
+                        actions.push((state, child_path))
+
+    return []
+    # initial_node = (problem.getStartState(), [])
+    #
+    # if problem.isGoalState(initial_node.state):
+    #     return initial_node.actions
+    #
+    # frontier = Queue()
+    # frontier.push(initial_node)
+    # explored = set()
+    #
+    # while not frontier.isEmpty():
+    #     current_node = frontier.pop()
+    #     explored.add(current_node.state)
+    #     for state, action, cost in problem.getSuccessors(current_node.state):
+    #         child_node = state, action, cost
+    #         if child_node.state not in explored and child_node not in frontier.list:
+    #             if problem.isGoalState(child_node.state):
+    #                 return child_node.actions
+    #             frontier.push(child_node)
+    #
+    # return []
 
 
 def uniformCostSearch(problem):
