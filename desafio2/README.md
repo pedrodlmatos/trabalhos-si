@@ -58,8 +58,7 @@ Exemplos:
  - `python3 pacman.py -p GoWestAgent` ou `python3 pacman.py --pacman GoWestAgent`
  - `python3 pacman.py -l testMaze -p SearchAgent` ou `python3 pacman.py --layout testMaze --pacman SearchAgent`
 
-
-#### Step 1 - Depth-first search
+### Step 1 - Depth-first search
 
 Parâmetros:
  - `-p` - `Search agent`
@@ -77,10 +76,18 @@ Para avaliar a influência da ordem:
 
 Em todas as situações, substituir `map` por um dos mapas.
 
-#### Step 2 - Breadth-first search
+
+### Step 2 - Breadth-first search
+
+Parâmetros:
+ - `-p` - `SearchAgent`
+ - `-a` - `fn=bfs`
+
+Execução no terminal (dentro do diretório search):
+ - `python3 pacman.py -l map -p SearchAgent -a fn=ucs`
 
 
-#### Step 3 - Uniform cost search
+### Step 3 - Uniform cost search
 
 Parâmetros:
  - `-p` - `SearchAgent`
@@ -88,10 +95,19 @@ Parâmetros:
 
 Execução no terminal (dentro do diretório search):
  - `python3 pacman.py -l map -p SearchAgent -a fn=ucs`
-    
-Execução usando make (na raíz):
- - `make ucs_map`
 
-Em todas as situações, substituir `map` por um dos mapas.
+Substituir `map` por um dos mapas.
+
+
+### Step 4 - A*
+
+Parâmetros:
+ - `-p` - `SearchAgent`
+ - `-a` - `fn=astar`, `fn=astar,heuristic=manhattanHeuristic`
+
+Execução no terminal (dentro do diretório search):
+ - `python3 pacman.py -l map -p SearchAgent -a fn=ucs`
+
+Substituir `map` por um dos mapas
 
 
