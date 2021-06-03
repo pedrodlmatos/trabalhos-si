@@ -259,11 +259,13 @@ def aStarSearch(problem, heuristic=nullHeuristic):
         if current_state not in visited:
             visited.append(current_state)
             for successor, direction, cost in problem.getSuccessors(current_state):
-                path_to_successor = path_to_state + [direction]
-                cost_to_successor = problem.getCostOfActions(path_to_successor) + heuristic(successor, problem)
-
                 if successor not in visited:
+                    path_to_successor = path_to_state + [direction]
+                    # calculate cost using heuristic
+                    cost_to_successor = problem.getCostOfActions(path_to_successor) + heuristic(successor, problem)
                     actions.push((successor, path_to_successor), cost_to_successor)
+
+    return []
 
 
 # Abbreviations
