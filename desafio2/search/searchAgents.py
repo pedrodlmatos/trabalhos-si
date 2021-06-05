@@ -346,23 +346,11 @@ class CornersProblem(search.SearchProblem):
         """
         if actions == None: return 999999
         x, y = self.startingPosition
-        cost = 0
         for action in actions:
-            # Check figure out the next state and see whether its' legal
             dx, dy = Actions.directionToVector(action)
             x, y = int(x + dx), int(y + dy)
             if self.walls[x][y]: return 999999
-            cost += self.costFn((x, y))
-        return cost
-
-        #if actions == None: return 999999
-        #x,y= self.startingPosition
-        #for action in actions:
-        #    dx, dy = Actions.directionToVector(action)
-        #    x, y = int(x + dx), int(y + dy)
-        #    if self.walls[x][y]: return 999999
-        #return len(actions)
-
+        return len(actions)
 
 def cornersHeuristic(state, problem):
     """
