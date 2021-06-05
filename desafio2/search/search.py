@@ -162,26 +162,6 @@ def breadthFirstSearch(problem):
                         actions.push((state, child_path))
 
     return []
-    # initial_node = (problem.getStartState(), [])
-    #
-    # if problem.isGoalState(initial_node.state):
-    #     return initial_node.actions
-    #
-    # frontier = Queue()
-    # frontier.push(initial_node)
-    # explored = set()
-    #
-    # while not frontier.isEmpty():
-    #     current_node = frontier.pop()
-    #     explored.add(current_node.state)
-    #     for state, action, cost in problem.getSuccessors(current_node.state):
-    #         child_node = state, action, cost
-    #         if child_node.state not in explored and child_node not in frontier.list:
-    #             if problem.isGoalState(child_node.state):
-    #                 return child_node.actions
-    #             frontier.push(child_node)
-    #
-    # return []
 
 
 def uniformCostSearch(problem):

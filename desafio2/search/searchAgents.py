@@ -319,33 +319,22 @@ class CornersProblem(search.SearchProblem):
             is the incremental cost of expanding to that successor
         """
 
+        successors = []
+        "*** YOUR CODE HERE ***"
         x, y = state.position
 
-        successors = []
         for action in [Directions.NORTH, Directions.SOUTH, Directions.EAST, Directions.WEST]:
-            # Add a successor state to the successor list if the action is legal
-            # Here's a code snippet for figuring out whether a new position hits a wall:
-            #   x,y = currentPosition
-            #   dx, dy = Actions.directionToVector(action)
-            #   nextx, nexty = int(x + dx), int(y + dy)
-            #   hitsWall = self.walls[nextx][nexty]
             dx, dy = Actions.directionToVector(action)
             nextx, nexty = int(x + dx), int(y + dy)
 
             if not self.walls[nextx][nexty]:
-
                 stateVisitedCorners = state.visitedCorners.copy()
-
                 nextStatePosition = (nextx, nexty)
-
                 if nextStatePosition in self.corners:
                     stateVisitedCorners.add(nextStatePosition)
 
                 cost = self.costFn(nextStatePosition)
-
                 successors.append((CustomState(nextStatePosition, stateVisitedCorners), action, cost))
-
-            "*** YOUR CODE HERE ***"
 
         self._expanded += 1 # DO NOT CHANGE
         return successors
@@ -391,26 +380,8 @@ def cornersHeuristic(state, problem):
     corners = problem.corners # These are the corner coordinates
     walls = problem.walls # These are the walls of the maze, as a Grid (game.py)
 
-    heuristic = 0
-
-    unvisitedCorners = set(problem.corners) - state.visitedCorners
-
-    position = state.position
-
-    for i in range(len(unvisitedCorners)):
-
-        cornerDistance = []
-
-        for corner in unvisitedCorners:
-            cornerDistance.append([util.manhattanDistance(position, corner), corner])
-
-        cost, position = min(cornerDistance)
-
-        heuristic += cost
-
-        unvisitedCorners.remove(position)
-
-    return heuristic
+    "*** YOUR CODE HERE ***"
+    return 0 # Default to trivial solution
 
 class AStarCornersAgent(SearchAgent):
     "A SearchAgent for FoodSearchProblem using A* and your foodHeuristic"
