@@ -365,11 +365,24 @@ def cornersHeuristic(state, problem):
     shortest path from the state to a goal of the problem; i.e.  it should be
     admissible (as well as consistent).
     """
-    corners = problem.corners # These are the corner coordinates
-    walls = problem.walls # These are the walls of the maze, as a Grid (game.py)
+    corners = problem.corners       # These are the corner coordinates
+    walls = problem.walls           # These are the walls of the maze, as a Grid (game.py)
 
     "*** YOUR CODE HERE ***"
-    return 0 # Default to trivial solution
+    # return 0 # Default to trivial solution
+    xy, visited_corners = state.position, state.visitedCorners
+    unvisited_corners = []
+
+    heuristic_values = [0]
+
+    for corner in corners:
+        if corner not in visited_corners:
+            # heuristic_values.append(util.manhattanDistance(xy, corner))
+            heuristic_values.append(util.euclideanHeuristic(xy, corner))
+    return max(heuristic_values)
+
+
+
 
 class AStarCornersAgent(SearchAgent):
     "A SearchAgent for FoodSearchProblem using A* and your foodHeuristic"
@@ -532,6 +545,7 @@ class AnyFoodSearchProblem(PositionSearchProblem):
         "*** YOUR CODE HERE ***"
         util.raiseNotDefined()
 
+
 def mazeDistance(point1, point2, gameState):
     """
     Returns the maze distance between any two points, using the search functions
@@ -549,3 +563,4 @@ def mazeDistance(point1, point2, gameState):
     assert not walls[x2][y2], 'point2 is a wall: ' + str(point2)
     prob = PositionSearchProblem(gameState, start=point1, goal=point2, warn=False, visualize=False)
     return len(search.bfs(prob))
+

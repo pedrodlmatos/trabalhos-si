@@ -227,6 +227,11 @@ def manhattanDistance( xy1, xy2 ):
     "Returns the Manhattan distance between points xy1 and xy2"
     return abs( xy1[0] - xy2[0] ) + abs( xy1[1] - xy2[1] )
 
+
+def euclideanHeuristic(position1, position2):
+    "The Euclidean distance heuristic for a PositionSearchProblem"
+    return ((position1[0] - position2[0]) ** 2 + (position1[1] - position2[1]) ** 2) ** 0.5
+
 """
   Data structures and functions useful for various course projects
 

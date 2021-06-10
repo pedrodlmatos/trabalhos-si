@@ -167,8 +167,8 @@ def breadthFirstSearch(problem):
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
 
-    frontier = PriorityQueue()  # frontier
-    visited_states = []  # list of visited states
+    frontier = PriorityQueue()      # frontier
+    visited_states = []             # list of visited states
     node = problem.getStartState()  # initial node
 
     # if initial state is the goal state (stop)
@@ -195,15 +195,15 @@ def uniformCostSearch(problem):
             if len(child_states) > 0:
                 # add child nodes to list of actions
                 for node in child_states:
-                    state, direction, cost = node
-                    path_to_child = path_to_state + [direction]
+                    child_state, direction_to_child, cost_to_child = node
+                    path_to_child = path_to_state + [direction_to_child]
                     path_cost = problem.getCostOfActions(path_to_child)
-                    frontier_states = {state: priority for priority, _, (state, directions) in frontier.heap}
+                    frontier_states = {child_state: priority for priority, _, (child_state, directions) in frontier.heap}
 
-                    if state not in visited_states or state not in frontier_states:
-                        frontier.push((state, path_to_child), path_cost)
-                    elif state in frontier_states and frontier_states[state] > path_cost:
-                        frontier.update((state, path_to_child), path_cost)
+                    if child_state not in visited_states or child_state not in frontier_states:
+                        frontier.push((child_state, path_to_child), path_cost)
+                    elif child_state in frontier_states and frontier_states[child_state] > path_cost:
+                        frontier.update((child_state, path_to_child), path_cost)
     return []
 
 
