@@ -178,6 +178,8 @@ def uniformCostSearch(problem):
     # push initial state in PriorityQueue
     frontier.push((node, []), 0)
 
+    frontier_states = {child_state: priority for priority, _, (child_state, directions) in frontier.heap}
+
     # stop when solution is found or when queue is empty
     while not frontier.isEmpty():
         current_state, path_to_state = frontier.pop()  # choose the lowest cost node
@@ -198,12 +200,12 @@ def uniformCostSearch(problem):
                     child_state, direction_to_child, cost_to_child = node
                     path_to_child = path_to_state + [direction_to_child]
                     path_cost = problem.getCostOfActions(path_to_child)
-                    frontier_states = {child_state: priority for priority, _, (child_state, directions) in frontier.heap}
 
                     if child_state not in visited_states or child_state not in frontier_states:
                         frontier.push((child_state, path_to_child), path_cost)
                     elif child_state in frontier_states and frontier_states[child_state] > path_cost:
                         frontier.update((child_state, path_to_child), path_cost)
+                    frontier_states[child_state] = path_cost
     return []
 
 
@@ -251,5 +253,5 @@ def aStarSearch(problem, heuristic=nullHeuristic):
 # Abbreviations
 bfs = breadthFirstSearch
 dfs = depthFirstSearch
-astar = aStarSearch  # to be implemented
+astar = aStarSearch
 ucs = uniformCostSearch
