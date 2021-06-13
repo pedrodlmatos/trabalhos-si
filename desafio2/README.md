@@ -110,4 +110,79 @@ Execução no terminal (dentro do diretório search):
 
 Substituir `map` por um dos mapas
 
+### Step 5 - Corners Problem
 
+Parâmetros:
+ - `-l`
+    - `tinyCorners`
+    - `mediumCorners`
+    - `bigCorners`
+- `-p`: `SearchAgent`
+- `-a` 
+    - `fn=dfs,prob=CornersProblem`
+    - `fn=bfs,prob=CornersProblem`
+    - `fn=ucs,prob=CornersProblem`
+    - `fn=astar,prob=CornersProblem,heuristic=nullHeurisitc`
+    - `fn=astar,prob=CornersProblem,heuristic=manhattanHeuristic`
+
+Execução no terminal
+ - `python3 pacman.py -l map -p SearchAgent -a args`
+
+### Step 6 - Corners Heuristic
+
+Parâmetros:
+ - `-l`:
+    - `tinyCorners`
+    - `mediumCorners`
+    - `bigCorners`
+
+- `-p`:
+    - `SearchAgent`
+    - `AStarCornersAgent` - forma abreviada de definir o agente como:
+        `-p SearchAgent -a fn=aStarSearch,prob=CornersProblem,heuristic=cornersHeuristic`
+- `a` (para o caso de definir o agent como `SearchAgent`):
+    - `fn=dfs,prob=CornersProblem`
+    - `fn=bfs,prob=CornersProblem`
+    - `fn=ucs,prob=CornersProblem`
+    - `fn=astar,prob=CornersProblem,heuristic=cornersHeuristic`
+
+Execução no terminal
+- `python3 pacman.py -l map -p SearchAgent -a args`
+- `python3 pacman.py -l map -p AStarSearchAgent`
+
+
+### Step 7 - Food Heuristic
+
+Parâmetros:
+ - `-l`:
+    - `testSearch`
+    - `tinySearch`
+    - `trickySearch`
+    - `smallSearch`
+
+- `-p`:
+    - `SearchAgent`
+    - `AStarFoodSearchAgent`
+- `a` (para o caso de definir o agent como `SearchAgent`):
+    - `fn=dfs,prob=FoodSearchProblem`
+    - `fn=bfs,prob=FoodSearchProblem`
+    - `fn=ucs,prob=FoodSearchProblem`
+    - `fn=astar,prob=FoodSearchProblem,heuristic=nullHeuristic`
+    - `fn=astar,prob=FoodSearchProblem,heuristic=foodHeuristic`
+
+Execução no terminal
+- `python3 pacman.py -l map -p SearchAgent -a args`
+- `python3 pacman.py -l map -p AStarFoodSearchAgent`
+
+### Step 8 - Closest dot search agent
+
+Parâmetros:
+ - `-l`:
+    - `mediumSearch`
+    - `bigSearch`
+
+- `-p`:
+    - `ClosestSearchAgent`
+
+Execução no terminal
+- `python3 pacman.py -l map -p ClosestDotSearchAgent`
